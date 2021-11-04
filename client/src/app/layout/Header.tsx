@@ -1,20 +1,88 @@
-import { AppBar, Switch, Toolbar, Typography } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
+import {
+  AppBar,
+  Badge,
+  IconButton,
+  List,
+  ListItem,
+  Switch,
+  Toolbar,
+  Typography,
+  Box,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { NavLink } from "react-router-dom";
 interface Props {
   darkMode: boolean;
   handleThemeChange: () => void;
 }
 
+const midLinks = [
+  { title: "catalog", path: "/catalog" },
+  { title: "about", path: "/about" },
+  { title: "contact", path: "/contact" },
+];
+
+const rightLinks = [
+  { title: "login", path: "/login" },
+  { title: "register", path: "/register" },
+];
+
+const navStyles = {
+  color: "inherit",
+  textDecoder: "none",
+  typography: "h6",
+  "&:hover": {
+    color: "gray.500",
+  },
+  "&.active": { color: "text.secondary" },
+};
+
 export default function Header({ darkMode, handleThemeChange }: Props) {
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6">RE-STORE</Typography>
-        <MaterialUISwitch
-          sx={{ m: 1 }}
-          checked={darkMode}
-          onChange={handleThemeChange}
-        />
+    <AppBar position="static" sx={{ mb: 4 }}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <Typography
+            variant="h6"
+            exact
+            component={NavLink}
+            sx={navStyles}
+            to="/"
+          >
+            RE-STORE
+          </Typography>
+          <MaterialUISwitch
+            sx={{ m: 1 }}
+            checked={darkMode}
+            onChange={handleThemeChange}
+          />
+        </Box>
+        <List sx={{ display: "flex" }}>
+          {midLinks.map(({ title, path }) => (
+            <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
+              {title.toUpperCase()}
+            </ListItem>
+          ))}
+        </List>
+        <IconButton size="large" sx={{ color: "inherit" }}>
+          <Badge badgeContent={4} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <List sx={{ display: "flex" }}>
+          {rightLinks.map(({ title, path }) => (
+            <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
+              {title.toUpperCase()}
+            </ListItem>
+          ))}
+        </List>
       </Toolbar>
     </AppBar>
   );
