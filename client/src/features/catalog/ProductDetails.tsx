@@ -8,9 +8,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/models/product";
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,10 +20,9 @@ const ProductDetails = () => {
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/products/${id}`)
+    agent.Catalog.details(parseInt(id))
       .then((res) => {
-        setProduct(res.data);
+        setProduct(res);
       })
       .catch((err) => {
         console.log(err);
@@ -29,9 +30,9 @@ const ProductDetails = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <Typography variant="h3">Loading...</Typography>;
+  if (loading) return <LoadingComponent message="Loading product..." />;
 
-  if (!product) return <Typography variant="h3">Product not found</Typography>;
+  if (!product) return <NotFound />;
 
   return (
     <Grid container spacing={6}>

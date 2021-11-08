@@ -71,18 +71,20 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
             </ListItem>
           ))}
         </List>
-        <IconButton size="large" sx={{ color: "inherit" }}>
-          <Badge badgeContent={4} color="secondary">
-            <ShoppingCart />
-          </Badge>
-        </IconButton>
-        <List sx={{ display: "flex" }}>
-          {rightLinks.map(({ title, path }) => (
-            <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
-              {title.toUpperCase()}
-            </ListItem>
-          ))}
-        </List>
+        <Box display="flex" sx={{ alignItems: "center" }}>
+          <IconButton size="large" sx={{ color: "inherit" }}>
+            <Badge badgeContent={4} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
+          <List sx={{ display: "flex" }}>
+            {rightLinks.map(({ title, path }) => (
+              <ListItem component={NavLink} to={path} key={path} sx={navStyles}>
+                {title.toUpperCase()}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Toolbar>
     </AppBar>
   );
