@@ -11,7 +11,7 @@ import {
   Box,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 interface Props {
   darkMode: boolean;
   handleThemeChange: () => void;
@@ -72,7 +72,12 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
           ))}
         </List>
         <Box display="flex" sx={{ alignItems: "center" }}>
-          <IconButton size="large" sx={{ color: "inherit" }}>
+          <IconButton
+            component={Link}
+            to="/basket"
+            size="large"
+            sx={{ color: "inherit" }}
+          >
             <Badge badgeContent={4} color="secondary">
               <ShoppingCart />
             </Badge>
